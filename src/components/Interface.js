@@ -3,8 +3,12 @@ import FabricCAClient from "fabric-ca-client";
 
 class App extends Component {
   constructor(props){
-      let fClient = new FabricCAClient();
-      this.state = {};
+    super(props);
+      let fabric_ca_client = new FabricCAClient();
+      this.state = {
+        f_ca_client: fabric_ca_client,
+        admin_user: ""
+      };
 
       this.register = this.register.bind(this);
       this.revoke = this.revoke.bind(this);
@@ -12,20 +16,20 @@ class App extends Component {
       this.reenroll = this.reenroll.bind(this);
   }
 
-  register(){
-
+  register(user, secret, org, r){
+    f_ca_client.register({enrollmentID: user, enrollmentSecret: secret, affiliation: org, role: r}, admin_user);
   }
 
-  revoke(){
-
+  revoke(user, key, hex, text){
+    f_ca_client.revoke({enrollmentID: user, aki: key, serial: hex, reason: text});
   }
 
-  enroll(){
-
+  enroll(user, secret, signing){
+    f_ca_client.enroll({enrollmentID: user, enrollmentSecret: secret, csr: signing});
   }
 
-  reenroll(){
-
+  reenroll(signing){
+    f_ca_client.reenroll({csr: signing});
   }
 
   render() {
@@ -35,4 +39,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Interface;
