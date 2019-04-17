@@ -8,7 +8,7 @@ class Interface extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ccpPath: path.resolve(__dirname, '..', '..', 'basic-network', 'connection.json'),
+      ccpPath: path.resolve(__dirname, '..', '..', 'network', 'connection.json'),
       ccpJSON: fs.readFileSync(ccpPath, 'utf8'),
       ccp: JSON.parse(ccpJSON)
     };
