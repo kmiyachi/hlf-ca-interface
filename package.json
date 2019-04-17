@@ -6,6 +6,9 @@
     "bootstrap": "^3.4.1",
     "cors": "^2.8.5",
     "fabric-ca-client": "^1.4.1",
+    "fabric-network": "^1.4.1",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8"
