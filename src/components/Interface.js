@@ -52,11 +52,11 @@ class Interface extends Component {
     }
   }
 
-  async regUser(username) {
+  async regUser(username, esecret) {
     try {
 
       // Create a new file system based wallet for managing identities.
-      const walletPath = path.join(process.cwd(), 'wallet');
+      const walletPath = path.join(process.cwd(),'..','..', 'wallet');
       const wallet = new FileSystemWallet(walletPath);
       console.log(`Wallet path: ${walletPath}`);
 
@@ -84,8 +84,8 @@ class Interface extends Component {
       const adminIdentity = gateway.getCurrentIdentity();
 
       // Register the user, enroll the user, and import the new identity into the wallet.
-      const secret = await ca.register({ affiliation: 'org1.department1', enrollmentID: username, role: 'client' }, adminIdentity);
-      const enrollment = await ca.enroll({ enrollmentID: username, enrollmentSecret: secret });
+      const secret = await ca.register({ affiliation: 'org1.department1', enrollmentID: username, enrollmentSecret: esecret, role: 'client' }, adminIdentity);
+      const enrollment = await ca.enroll({ enrollmentID: username, enrollmentSecret: esecret });
       const userIdentity = X509WalletMixin.createIdentity('Org1MSP', enrollment.certificate, enrollment.key.toBytes());
       wallet.import(username, userIdentity);
       console.log('Successfully registered and enrolled admin user "' + username + '" and imported it into the wallet');
@@ -96,6 +96,23 @@ class Interface extends Component {
     }
   }
 
+  async login(username, secret) {
+   // Create a new file system based wallet for managing identities.
+   const walletPath = path.join(process.cwd(), 'wallet');
+   const wallet = new FileSystemWallet(walletPath);
+   console.log(`Wallet path: ${walletPath}`);
+
+   // Check to see if we've already enrolled the user.
+   const userExists = await wallet.exists(username);
+   if (userExists) {
+     //console.log('An identity for the user "' + username + '" already exists in the wallet');
+     //return;
+     // Check Credentials --> Send to page with there proper authorization rights
+   }
+   else {
+     console.log(username + " does not exist in the Hyperledger Fabric Network");
+   } 
+  }
   register(user, secret, org, r) {
     //f_ca_client.register({ enrollmentID: user, enrollmentSecret: secret, affiliation: org, role: r }, admin_user);
   }
