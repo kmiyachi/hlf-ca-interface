@@ -113,6 +113,7 @@ class Interface extends Component {
      console.log(username + " does not exist in the Hyperledger Fabric Network");
    } 
   }
+  
   register(user, secret, org, r) {
     //f_ca_client.register({ enrollmentID: user, enrollmentSecret: secret, affiliation: org, role: r }, admin_user);
   }
