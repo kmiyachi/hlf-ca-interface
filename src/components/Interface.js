@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import Fabric_CA_Client from 'fabric-ca-client';
 import { FileSystemWallet, Gateway, X509WalletMixin } from 'fabric-network';
-import fs from 'fs';
 import path from 'path';
 
 class Interface extends Component {
   constructor(props) {
     super(props);
+    const fs = require('fs');
+    const ccpPath = path.resolve(__dirname, '..', '..', 'network', 'connection.json');
+    const ccpJSON = fs.readFileSync(ccpPath, 'utf8');
+    this.ccp = JSON.parse(ccpJSON);
     this.state = {
-      ccpPath: path.resolve(__dirname, '..', '..', 'network', 'connection.json'),
-      ccpJSON: fs.readFileSync(ccpPath, 'utf8'),
-      ccp: JSON.parse(ccpJSON)
+
     };
 
     this.register = this.register.bind(this);
     this.revoke = this.revoke.bind(this);
+    this.login = this.revoke.bind(this);
     this.enroll = this.enroll.bind(this);
     this.reenroll = this.reenroll.bind(this);
     this.enrollAdmin = this.enrollAdmin.bind(this);
@@ -25,7 +27,7 @@ class Interface extends Component {
     try {
 
       // Create a new CA client for interacting with the CA.
-      const caURL = this.state.ccp.certificateAuthorities['ca.example.com'].url;
+      const caURL = this.ccp.certificateAuthorities['ca.example.com'].url;
       const ca = new Fabric_CA_Client(caURL);
 
       // Create a new file system based wallet for managing identities.
@@ -56,7 +58,7 @@ class Interface extends Component {
     try {
 
       // Create a new file system based wallet for managing identities.
-      const walletPath = path.join(process.cwd(),'..','..', 'wallet');
+      const walletPath = path.join(process.cwd(), '..', '..', 'wallet');
       const wallet = new FileSystemWallet(walletPath);
       console.log(`Wallet path: ${walletPath}`);
 
@@ -77,7 +79,7 @@ class Interface extends Component {
 
       // Create a new gateway for connecting to our peer node.
       const gateway = new Gateway();
-      await gateway.connect(this.state.ccp, { wallet, identity: 'admin', discovery: { enabled: false } });
+      await gateway.connect(this.ccp, { wallet, identity: 'admin', discovery: { enabled: false } });
 
       // Get the CA client object from the gateway for interacting with the CA.
       const ca = gateway.getClient().getCertificateAuthority();
@@ -97,21 +99,21 @@ class Interface extends Component {
   }
 
   async login(username, secret) {
-   // Create a new file system based wallet for managing identities.
-   const walletPath = path.join(process.cwd(), 'wallet');
-   const wallet = new FileSystemWallet(walletPath);
-   console.log(`Wallet path: ${walletPath}`);
+    // Create a new file system based wallet for managing identities.
+    const walletPath = path.join(process.cwd(), 'wallet');
+    const wallet = new FileSystemWallet(walletPath);
+    console.log(`Wallet path: ${walletPath}`);
 
-   // Check to see if we've already enrolled the user.
-   const userExists = await wallet.exists(username);
-   if (userExists) {
-     //console.log('An identity for the user "' + username + '" already exists in the wallet');
-     //return;
-     // Check Credentials --> Send to page with there proper authorization rights
-   }
-   else {
-     console.log(username + " does not exist in the Hyperledger Fabric Network");
-   } 
+    // Check to see if we've already enrolled the user.
+    const userExists = await wallet.exists(username);
+    if (userExists) {
+      //console.log('An identity for the user "' + username + '" already exists in the wallet');
+      //return;
+      // Check Credentials --> Send to page with there proper authorization rights
+    }
+    else {
+      console.log(username + " does not exist in the Hyperledger Fabric Network");
+    }
   }
   
   register(user, secret, org, r) {
