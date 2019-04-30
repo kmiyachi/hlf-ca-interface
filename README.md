@@ -13,8 +13,7 @@ npm install
 cd src
 node express.js
 ```
-2. Frontend Web Browser
-Open up a new terminal
+2. Frontend Web Browser - **Open up a new terminal**
 ```
 cd frontend
 npm install

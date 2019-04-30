@@ -31,6 +31,24 @@
             "certificateAuthorities": [
                 "ca.example.com"
             ]
+        },
+        "FIOrg": {
+            "mspid": "FIOrg",
+            "peers": [
+                "peer0.fiorg.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.example.com"
+            ]
+        },
+        "RegOrg": {
+            "mspid": "RegOrg",
+            "peers": [
+                "peer0.regord.example.com"
+            ],
+            "certificateAuthorities": [
+                "ca.example.com"
+            ]
         }
     },
     "orderers": {

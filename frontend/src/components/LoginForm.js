@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-class Interface extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -187,4 +187,4 @@ class Interface extends Component {
   }
 }
 
-export default Interface;
+export default LoginForm;
