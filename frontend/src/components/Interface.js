@@ -58,29 +58,30 @@ class Interface extends Component {
   handleAdminIdChange = event => {
     event.preventDefault()
     this.setState({ admin_id: event.target.value });
-    console.log(this.state.admin_id);
   }
 
   handleAdminPwChange = event => {
     event.preventDefault()
     this.setState({ admin_pw: event.target.value });
-    console.log(this.state.admin_pw);
   }
 
   callLogin() {
     if (this.state.login_password && this.state.login_username) {
       const loginData = {
-        username: this.state.username,
-        password: this.state.password
+        username: this.state.login_username,
+        password: this.state.login_password
       }
       $.ajax({
         url: 'http://localhost:4000/login',
         type: 'POST',
-        contentType: "application/json; charset=utf-8",
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         crossDomain: true,
         dataType: 'json',
         xhrFields: { withCredentials: true },
-        data: { loginData: loginData},
+        data: {
+          username: this.state.login_username,
+          password: this.state.login_password
+        },
         success: (data) => {
           if (data.message === "OK") {
             this.setState({ login_success: true });
@@ -99,17 +100,20 @@ class Interface extends Component {
   callRegister() {
     if (this.state.regis_password && this.state.regis_username) {
       const regisData = {
-        username: this.state.username,
-        password: this.state.password
+        username: this.state.regis_username,
+        password: this.state.regis_password
       }
       $.ajax({
         url: 'http://localhost:4000/register',
         type: 'POST',
-        contentType: "application/json; charset=utf-8",
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         crossDomain: true,
         dataType: 'json',
         xhrFields: { withCredentials: true },
-        data: { regisData: regisData},
+        data: {
+          username: this.state.regis_username,
+          password: this.state.regis_password
+        },
         success: (data) => {
           if (data.message === "OK") {
             this.setState({ regis_success: true });
@@ -131,14 +135,19 @@ class Interface extends Component {
         id: this.state.admin_id,
         pw: this.state.admin_pw
       }
+      console.log(JSON.stringify(adminData))
       $.ajax({
         url: 'http://localhost:4000/enroll',
+        context: document.body,
         type: 'POST',
-        contentType: "application/json; charset=utf-8",
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         crossDomain: true,
         dataType: 'json',
         xhrFields: { withCredentials: true },
-        data: { adminData: adminData},
+        data: {
+          id: this.state.admin_id,
+          pw: this.state.admin_pw
+        },
         success: (data) => {
           if (data.message === "OK") {
             this.setState({ enroll_success: true });

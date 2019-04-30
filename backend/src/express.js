@@ -30,8 +30,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(bodyParser.json());
 // const server = require('./server.js');
 
 var enrollAdmin = async function (id, pw) {
@@ -105,9 +105,9 @@ var login = async function (username, password) {
         const userExists = await wallet.exists(username);
         if (userExists) {
             console.log('Log in');
-            let user_path = path.join('./wallet', username, 'nice.json');
+            let user_path = path.join('./wallet', username, username);
             console.log(user_path);
-            let json = require('./wallet/Danny/nice.json'); //(with path)
+            let json = JSON.parse(fs.readFileSync(user_path, 'utf8'));
             console.log(json);
             if (password === json.enrollmentSecret) {
                 console.log('Login Successful!');
@@ -129,8 +129,9 @@ var login = async function (username, password) {
 }
 
 app.use('/register', function (req, res) {
-    var username = req.body.regisData.username;
-    var password = req.body.regisData.password;
+    var username = req.body.username;
+    var password = req.body.password;
+    console.log(req.body)
     if (register(username, password)) {
         res.status(200).json({ message: 'OK' });
     } else {
@@ -139,9 +140,10 @@ app.use('/register', function (req, res) {
 });
 
 app.use('/enroll', function (req, res) {
-    var id = req.body.adminData.id;
-    var pw = req.body.adminData.pw;
-    console.log("what is here: " + req);
+    console.log(req.body);
+    var id = req.body.id;
+    var pw = req.body.pw;
+    console.log("what is here: " + id + pw);
     if (enrollAdmin(id, pw)) {
         res.status(200).json({ message: 'OK' });
     } else {
@@ -150,8 +152,8 @@ app.use('/enroll', function (req, res) {
 });
 
 app.use('/login', function (req, res) {
-    var username = req.body.loginData.username;
-    var password = req.body.loginData.password;
+    var username = req.body.username;
+    var password = req.body.password;
     if (login(username, password)) {
         res.status(200).json({ message: 'OK' });
     } else {
