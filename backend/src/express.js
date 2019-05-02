@@ -131,34 +131,38 @@ var login = async function (username, password) {
 app.use('/register', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    console.log(req.body)
-    if (register(username, password)) {
-        res.status(200).json({ message: 'OK' });
-    } else {
-        res.status(200).json({ message: 'NOK' });
-    }
+    register(username, password).then(function(result){
+        if (result) {
+            res.status(200).json({ message: 'OK' });
+        } else {
+            res.status(200).json({ message: 'NOK' });
+        }
+    });
 });
 
 app.use('/enroll', function (req, res) {
     console.log(req.body);
     var id = req.body.id;
     var pw = req.body.pw;
-    console.log("what is here: " + id + pw);
-    if (enrollAdmin(id, pw)) {
-        res.status(200).json({ message: 'OK' });
-    } else {
-        res.status(200).json({ message: 'NOK' });
-    }
+    enrollAdmin(id, pw).then(function(result){
+        if (result) {
+            res.status(200).json({ message: 'OK' });
+        } else {
+            res.status(200).json({ message: 'NOK' });
+        }
+    });
 });
 
 app.use('/login', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    if (login(username, password)) {
-        res.status(200).json({ message: 'OK' });
-    } else {
-        res.status(200).json({ message: 'NOK' });
-    }
+    login(username, password).then(function(result){
+        if (result) {
+            res.status(200).json({ message: 'OK' });
+        } else {
+            res.status(200).json({ message: 'NOK' });
+        }
+    });
 });
 
 

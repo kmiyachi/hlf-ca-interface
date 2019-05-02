@@ -14,6 +14,7 @@ class Home extends Component {
 
     logout(){
         log.signout();
+        console.log("sign out should be false"+log.loggedIn);
     }
 
     render() {
@@ -21,6 +22,7 @@ class Home extends Component {
         return (
             <div>
                 <h1>Landing Page</h1>
+                {/* <h2>Welcome, {}</h2> */}
                 <Link className="signoutLink" to="/" onClick={this.logout}>Sign out</Link>
             </div>
         );
