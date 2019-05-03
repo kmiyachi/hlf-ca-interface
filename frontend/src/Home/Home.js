@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { log } from '../index';
 import { Link, Redirect } from "react-router-dom";
+import './Home.css'
 
 class Home extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class Home extends Component {
     render() {
         console.log(log.loggedIn);
         return (
-            <div>
+            <div className="home">
                 <h1>Landing Page</h1>
                 {/* <h2>Welcome, {}</h2> */}
                 <Link className="signoutLink" to="/" onClick={this.logout}>Sign out</Link>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import './SignUpForm.css'
 import { Link, Redirect } from "react-router-dom";
 
 class SignUpForm extends Component {
@@ -21,7 +22,7 @@ class SignUpForm extends Component {
     // this.handleAdminPwChange = this.handleAdminPwChange.bind(this);
     // this.callLogin = this.callLogin.bind(this);
     // this.callEnrollAdmin = this.callEnrollAdmin.bind(this);
-    // this.callRegister = this.callRegister.bind(this);
+    this.callRegister = this.callRegister.bind(this);
 
   }
 
@@ -169,8 +170,11 @@ class SignUpForm extends Component {
         {this.redirectAfterRegister()}
         <div className="registerUserForm">
           <input type="text" className="regFormField" placeholder="Username" onChange={this.handleUserRegisChange} />
+          <br></br>
           <input type="password" className="regFormField" placeholder="Password" onChange={this.handlePasswordRegisChange} />
-          <input type="submit" value="Register" onClick={this.callRegister}></input>
+          <div>
+            <input type="submit" className="submitButton" value="Register" onClick={this.callRegister}></input>
+          </div>
         </div>
         <div className="loginDiv">
           <Link className="logLink" to="/">Already have an account? Sign in</Link>

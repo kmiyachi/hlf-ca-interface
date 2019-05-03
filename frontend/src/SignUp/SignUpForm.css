@@ -2,11 +2,11 @@
   text-align: center;
 }
 
-.loginForm{
+.registerUserForm{
   margin-top: 15vh;
 }
 
-.loginFormField{
+.regFormField{
   margin-top: 2vh;
   font-size: 2vw;
   border-radius: 4px;
@@ -14,7 +14,7 @@
   font-family: "Verdana", sans-serif;
 }
 
-.loginButton{
+.submitButton{
   margin-top: 2vh;
   margin-bottom: 3vh;
   font-size: 2em;
@@ -24,8 +24,4 @@
   background-color: #429346; 
   color: white;
   cursor: pointer;
-}
-
-.error_msg{
-  color: #cc342c;
 }
