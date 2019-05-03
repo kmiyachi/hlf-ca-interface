@@ -21,12 +21,12 @@ export const log = {
 
 export default class App extends React.Component {
   render() {
-    console.log("loggedIn render: " + log.loggedIn);
+    console.log("loggedIn render: " + localStorage.getItem('loggedIn'));
     return (
       <BrowserRouter>
         <Switch>
           <Route  path="/Register" component={SignUpForm} />
-          <Route  path="/Home" render={() => (log.loggedIn ? <Home /> : <Redirect to="/" />)} />
+          <Route  path="/Home" render={() => (localStorage.getItem('loggedIn') ? <Home /> : <Redirect to="/" />)} />
           <Route  path="/" component={LoginForm} />
         </Switch>
       </BrowserRouter>
