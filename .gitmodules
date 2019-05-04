@@ -1,0 +1,3 @@
+[submodule "fabric-network"]
+	path = fabric-network
+	url = https://github.com/wearetheledger/fabric-network-boilerplate

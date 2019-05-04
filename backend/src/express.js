@@ -79,6 +79,8 @@ var enrollAdmin = async function (id, pw) {
     }
 }
 
+enrollAdmin('admin','adminpw');
+
 var register = async function (username, password) {
     try {
 
