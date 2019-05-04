@@ -5,7 +5,15 @@ This repository is a basic Login and Registration Framework for a Hyperledger Fa
 
 #### Setup
 
-1. Backend Server
+
+1. Hyperledger Fabric Network
+```
+cd fabric-network/scripts
+./startFabric.sh
+```
+
+
+2. Backend Server
 ```
 npm install
 cd backend
@@ -13,7 +21,7 @@ npm install
 cd src
 node express.js
 ```
-2. Frontend Web Browser - **Open up a new terminal**
+3. Frontend Web Browser - **Open up a new terminal**
 ```
 cd frontend
 npm install
