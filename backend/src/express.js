@@ -23,6 +23,26 @@ const wallet = new FileSystemWallet(walletPath);
 console.log(`Wallet path: ${walletPath}`);
 const gateway = new Gateway();
 
+// const CDBKVS = require('fabric-client/lib/impl/CouchDBKeyValueStore.js');
+
+// var client = Fabric_CA_Client.loadFromConfig('test/fixtures/network.yaml');
+
+// // Set the state store
+// let stateStore = await new CDBKVS({url: 'https://<USERNAME>:<PASSWORD>@<URL>', name: '<DB_NAME>'})
+// client.setStateStore(stateStore);
+
+// // Set the crypto store
+// const crypto = Fabric_CA_Client.newCryptoSuite();
+// let cryptoKS = Fabric_CA_Client.newCryptoKeyStore(
+//     CDBKVS,
+//     {
+//       url: 'https://<USERNAME>:<PASSWORD>@<URL>.cloudant.com',
+//       name: '<DB_NAME>'
+//     }
+// );
+// crypto.SetCryptoKeyStore(cryptoKS);
+// client.setCryptoSuite(crypto);
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -58,6 +78,8 @@ var enrollAdmin = async function (id, pw) {
         process.exit(1);
     }
 }
+
+enrollAdmin('admin','adminpw');
 
 var register = async function (username, password) {
     try {

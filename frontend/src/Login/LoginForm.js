@@ -74,7 +74,7 @@ class LoginForm extends Component {
 
   redirectAfterLogin = () => {
     if (this.state.login_success) {
-      console.log("redirect: " + log.loggedIn + " " + this.state.login_success);
+      console.log("redirect: " + localStorage.getItem('loggedIn') + " " + this.state.login_success);
       return (
         <Redirect to='/Home' />
       );

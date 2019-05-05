@@ -19,7 +19,7 @@ class Home extends Component {
     }
 
     render() {
-        console.log(log.loggedIn);
+        console.log("home: "+log.loggedIn);
         return (
             <div className="home">
                 <h1>Landing Page</h1>
