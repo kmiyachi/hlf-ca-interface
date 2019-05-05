@@ -10,8 +10,9 @@ class LoginForm extends Component {
     this.username = "";
     this.password = "";
     this.login_error = false;
+    this.missing_info = false;
     this.state = {
-      login_success: ""
+      login_success: "",
     };
 
     this.onChange = this.onChange.bind(this);
@@ -39,6 +40,7 @@ class LoginForm extends Component {
 
   callLogin() {
     if (this.password && this.username) {
+      this.missing_info = false;
       $.ajax({
         url: 'http://localhost:4000/login',
         type: 'POST',
@@ -65,7 +67,8 @@ class LoginForm extends Component {
         }
       });
     } else {
-      alert("Please fill in login form fields.")
+      this.missing_info = true;
+      this.setState({ login_success: false });
     }
   }
 
@@ -79,6 +82,7 @@ class LoginForm extends Component {
   }
 
   render() {
+    console.log("rendering")
     return (
       <div className="interface">
         {this.redirectAfterLogin()}
@@ -86,10 +90,14 @@ class LoginForm extends Component {
           <input type="text" className="loginFormField" placeholder="Username" onChange={this.handleUserLoginChange} />
           <br></br>
           <input type="password" className="loginFormField" placeholder="Password" onChange={this.handlePasswordLoginChange} />
-          {this.login_error ?
-              <div className="error_msg">Either your username or password is incorrect.</div>
-              : null
-            }
+          {this.login_error && !this.missing_info ?
+            <div className="error_msg">Either your username or password is incorrect.</div>
+            : null
+          }
+          {this.missing_info ?
+            <div className="error_msg">Please complete empty fields.</div>
+            : null
+          }
           <div>
             <input type="submit" className="loginButton" value="Login" onClick={this.callLogin}></input>
           </div>

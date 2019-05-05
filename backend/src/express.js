@@ -65,7 +65,7 @@ var register = async function (username, password) {
         const userExists = await wallet.exists(username);
         if (userExists) {
             console.log('An identity for the user "' + username + '" already exists in the wallet');
-            return false;
+            return ("user duplicate");
         }
 
         // Check to see if we've already enrolled the admin user.
@@ -73,7 +73,7 @@ var register = async function (username, password) {
         if (!adminExists) {
             console.log('An identity for the admin user "admin" does not exist in the wallet');
             console.log('Run the enrollAdmin.js application before retrying');
-            return false;
+            return ("admin null");
         }
 
         // Create a new gateway for connecting to our peer node.
@@ -89,7 +89,7 @@ var register = async function (username, password) {
         const userIdentity = X509WalletMixin.createIdentity('Org1MSP', enrollment.certificate, enrollment.key.toBytes());
         wallet.import(username, userIdentity);
         console.log('Successfully registered and enrolled admin user "' + username + '" and imported it into the wallet');
-        return true;
+        return ("");
 
     } catch (error) {
         console.error(`Failed to register user ${username}: ${error}`);
@@ -132,10 +132,10 @@ app.use('/register', function (req, res) {
     var username = req.body.username;
     var password = req.body.password;
     register(username, password).then(function(result){
-        if (result) {
-            res.status(200).json({ message: 'OK' });
+        if (!result) {
+            res.status(200).json({ message: 'OK'});
         } else {
-            res.status(200).json({ message: 'NOK' });
+            res.status(200).json({ message: 'NOK', result: result });
         }
     });
 });
