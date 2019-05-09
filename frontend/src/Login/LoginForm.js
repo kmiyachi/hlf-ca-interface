@@ -21,11 +21,27 @@ class LoginForm extends Component {
     this.callLogin = this.callLogin.bind(this);
     this.redirectAfterLogin = this.redirectAfterLogin.bind(this);
   }
-
+  
   onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
+  }
+
+  componentDidMount() {
+    const { renewSession } = this.props.auth;
+
+    if (localStorage.getItem('loggedIn') === 'true') {
+      renewSession();
+    }
+  }
+
+  auth_login() {
+    this.props.auth.login();
+  }
+
+  auth_logout() {
+    this.props.auth.logout();
   }
 
   handleUserLoginChange = event => {
@@ -83,6 +99,7 @@ class LoginForm extends Component {
 
   render() {
     console.log("rendering")
+    const { isAuthenticated } = this.props.auth;
     return (
       <div className="interface">
         {this.redirectAfterLogin()}
@@ -100,6 +117,9 @@ class LoginForm extends Component {
           }
           <div>
             <input type="submit" className="loginButton" value="Login" onClick={this.callLogin}></input>
+            <br></br>
+            {!isAuthenticated() && (<input type="submit" className="loginButton" value="Auth_Login" onClick={this.auth_login.bind(this)}></input>)}
+            {isAuthenticated() && (<input type="submit" className="loginButton" value="Auth_Logout" onClick={this.auth_logout.bind(this)}></input>)}
           </div>
         </div>
         <div className="registerDiv">

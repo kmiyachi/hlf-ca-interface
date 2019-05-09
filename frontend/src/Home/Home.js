@@ -13,17 +13,23 @@ class Home extends Component {
         this.logout = this.logout.bind(this);
     }
 
-    logout(){
+    logout() {
         log.signout();
-        console.log("sign out should be false"+log.loggedIn);
+        console.log("sign out should be false" + log.loggedIn);
+    }
+
+    auth_logout() {
+        this.props.auth.logout();
     }
 
     render() {
-        console.log("home: "+log.loggedIn);
+        const { isAuthenticated } = this.props.auth;
+        console.log(isAuthenticated());
         return (
             <div className="home">
                 <h1>Landing Page</h1>
-                {/* <h2>Welcome, {}</h2> */}
+                <input type="submit" className="loginButton" value="Auth_Logout" onClick={this.auth_logout.bind(this)}></input>
+                <br></br>
                 <Link className="signoutLink" to="/" onClick={this.logout}>Sign out</Link>
             </div>
         );
